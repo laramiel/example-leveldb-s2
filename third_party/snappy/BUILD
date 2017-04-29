@@ -2,6 +2,11 @@ package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
+filegroup(
+    name = "license",
+    srcs = ["upstream/LICENSE"],
+)
+
 cc_library(
   name="snappy",
   hdrs = [

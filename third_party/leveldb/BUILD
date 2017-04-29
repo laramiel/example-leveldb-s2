@@ -4,7 +4,7 @@ licenses(["notice"])  # BSD 3-clause
 
 filegroup(
     name = "license",
-    srcs = ["upstream/LICENSE"],
+    srcs = ["upstream/COPYING"],
 )
 
 cc_library(
@@ -26,6 +26,7 @@ cc_library(
         "upstream/db/write_batch.cc",
         "upstream/helpers/memenv/memenv.cc",
         "upstream/port/port_posix.cc",
+        "upstream/port/port_posix_sse.cc",
         "upstream/table/block.cc",
         "upstream/table/block_builder.cc",
         "upstream/table/filter_block.cc",

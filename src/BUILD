@@ -9,4 +9,8 @@ cc_binary(
         "//third_party/leveldb",
         "//external:s2",
     ],
+    linkopts = [
+        "-lssl",
+        "-lcrypto",
+    ],
 )

@@ -5,6 +5,7 @@
 
 #include "leveldb/db.h"
 #include "s2/s2latlng.h"
+#include "s2/s2cellid.h"
 
 int main(int argc, char **argv)
 {
@@ -25,17 +26,21 @@ int main(int argc, char **argv)
         db.reset(tmp);
     }
 
+    const double kLat = 89.0 / 128.0;
+    const double kLng = 179.0 / 128.0;
+
     // Add 256 values to the database
     leveldb::WriteOptions writeOptions;
-    for (unsigned int i = 0; i < 256; ++i)
+    for (int i = 0; i < 256; ++i)
     {
-        std::ostringstream keyStream;
-        keyStream << "Key" << i;
+        S2LatLng latlng = S2LatLng::FromDegrees(kLat * (-128 + i), kLng * (-128 + i)).Normalized();
+        S2CellId cell = S2CellId::FromLatLng(latlng);
 
-        S2LatLng x = S2LatLng::FromDegrees(0.1 * i, 0.2 * i);
+        std::ostringstream keyStream;
+        keyStream << cell.ToToken();
 
         std::ostringstream valueStream;
-        valueStream << "Test data value: " << x.ToStringInDegrees();
+        valueStream << "Test data value: " << latlng.ToStringInDegrees();
 
         db->Put(writeOptions, keyStream.str(), valueStream.str());
     }
@@ -58,12 +63,3 @@ int main(int argc, char **argv)
     // Close the database
 }
 
->>> import s2
->>> latlng = s2.S2LatLng.FromDegrees(-30.043800, -51.140220)
->>> cell = s2.S2CellId.FromLatLng(latlng)
->>> cell.level()
-30
->>> cell.id()
-10743750136202470315
->>> cell.ToToken()
-951977d377e723ab

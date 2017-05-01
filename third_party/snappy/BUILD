@@ -27,7 +27,8 @@ cc_library(
   copts = [
     "-Ithird_party/snappy/linux-k8",
     "-DHAVE_CONFIG_H",
-    "-Wno-unused-function"
+    "-Wno-unused-function",
+    "-Wno-sign-compare",
   ],
   includes = ["upstream", "linux-k8"],
   deps = [

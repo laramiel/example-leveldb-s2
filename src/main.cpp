@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "leveldb/db.h"
+#include "s2/s2latlng.h"
 
 int main(int argc, char **argv)
 {
@@ -31,8 +32,10 @@ int main(int argc, char **argv)
         std::ostringstream keyStream;
         keyStream << "Key" << i;
 
+        S2LatLng x = S2LatLng::FromDegrees(0.1 * i, 0.2 * i);
+
         std::ostringstream valueStream;
-        valueStream << "Test data value: " << i;
+        valueStream << "Test data value: " << x.ToStringInDegrees();
 
         db->Put(writeOptions, keyStream.str(), valueStream.str());
     }
@@ -54,3 +57,13 @@ int main(int argc, char **argv)
     }
     // Close the database
 }
+
+>>> import s2
+>>> latlng = s2.S2LatLng.FromDegrees(-30.043800, -51.140220)
+>>> cell = s2.S2CellId.FromLatLng(latlng)
+>>> cell.level()
+30
+>>> cell.id()
+10743750136202470315
+>>> cell.ToToken()
+951977d377e723ab

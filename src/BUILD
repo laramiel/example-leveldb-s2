@@ -5,5 +5,8 @@ package(
 cc_binary(
     name = "main",
     srcs = [ "main.cpp" ],
-    deps = [ "//third_party/leveldb" ],
+    deps = [
+        "//third_party/leveldb",
+        "//external:s2",
+    ],
 )

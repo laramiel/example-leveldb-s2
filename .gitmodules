@@ -4,6 +4,3 @@
 [submodule "third_party/leveldb/upstream"]
 	path = third_party/leveldb/upstream
 	url = https://github.com/google/leveldb
-[submodule "third_party/s2/upstream"]
-	path = third_party/s2/upstream
-	url = https://github.com/laramiel/s2-geometry-library
